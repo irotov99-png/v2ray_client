@@ -55,9 +55,16 @@ class StorageService {
     await _prefs.setString(_serversKey, json.encode(jsonList));
   }
 
-  List<V2RayServer> loadServers() {
+ List<V2RayServer> loadServers() {
     final jsonString = _prefs.getString(_serversKey);
-    if (jsonString == null) return [];
+    if (jsonString == null) {
+      return [
+        V2RayServer(
+          name: "🇫🇮 Финляндия", 
+          config: "vless://f1fa15db-7140-40e6-9e4f-20a1c033bc58@fi2.h1cloud.net:25891?type=tcp&security=reality&sni=://samsung.com&fp=firefox&pbk=S--AHKdqkrDfV4RMRu2sb_tNbKJUFcH5qVHGV2tCKUo&sid=f820d8c8d8dfc914&spx=%2F&encryption=none#pantera5rp%20%C2%B7%20%D0%A4%D0%B8%D0%BD%D0%BB%D1%8F%D0%BD%D0%B4%D0%B8%D1%8F%20%F0%9F%87%AB%F0%9F%87%AE"
+        )
+      ];
+    }
 
     final List<dynamic> jsonList = json.decode(jsonString);
     final servers = jsonList.map((json) => V2RayServer.fromJson(json)).toList();
